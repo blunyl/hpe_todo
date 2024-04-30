@@ -1,0 +1,13 @@
+<%- include('header.ejs') %>
+  <h2>list</h2>
+  <ul>
+    <%- posts.length == 0 ? `<li>no lists</li>` : posts.map(post => `
+      <li>
+        <p>${post._id}</p>
+        <p>${post.dateOfGoals}</p>
+        <!-- <button>삭제</button> -->
+        <a href="/detail/${post._id}">details</a>
+      </li>
+    `).join('') %>
+  </ul>
+<%- include('footer.ejs') %>

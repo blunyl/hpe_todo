@@ -1,0 +1,40 @@
+<%- include('header.ejs') %>
+<h2>detail</h2>
+<div>
+  <p><%= post._id %></p>
+  <p><%= post.title %></p>
+  <p><%= post.dateOfGoals %></p>
+  <!--data- 뒤에는 소문자로-->
+  <button class="delBtn" data-postnum="<%= post._id %>">delete</button>
+  <a href="/edit/<%= post._id %>">edit</a>
+  <a href="/list">golist</a>
+</div>
+
+<script>
+  const deleteBtn = document.querySelector('.delBtn');
+  deleteBtn.addEventListener('click', (e)=>{
+    //post delete작업
+    fetch('/delete', {
+      method:'POST',
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body :JSON.stringify({
+        postNum : e.target.dataset.postnum
+      })
+    }).then(res => {
+      //성공이면 /list 이동, 실패면 실패메시지 ->server.js app.post(delete)
+      //console.log(res.ok);
+      if(res.ok){
+        location.href='/list'
+      }else{
+        console.log('삭제실패');
+      }
+    })
+
+    //fetch().then()
+  })
+</script>
+
+<%- include('footer.ejs') %>
+
